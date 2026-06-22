@@ -40,10 +40,17 @@ app.config.update(
     SESSION_COOKIE_SECURE=False, # Set to True in production with HTTPS
     SESSION_COOKIE_HTTPONLY=True,
 )
-CORS(app, supports_credentials=True, origins=[
-    "http://localhost:5173",
-    "http://localhost:4173"
-])
+ORS(
+    app,
+    resources={
+        r"/*": {
+            "origins": [
+                "https://oats-deployment.onrender.com"
+            ]
+        }
+    },
+    supports_credentials=True
+)
 app.secret_key = 'oats-demo-key'
 
 DATA_PATH = 'data/insights'
