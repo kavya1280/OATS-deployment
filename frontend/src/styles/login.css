@@ -1,0 +1,198 @@
+.login-page-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* ADD THESE LINES: Change '/images/bg.png' to your actual background file name */
+    background: url('/images/bgimage.png') no-repeat center center;
+    background-size: cover; 
+    position: relative;
+}
+.login-container-new {
+    width: 90%;
+    max-width: 1000px;
+    height: 600px;
+    display: flex;
+    background: linear-gradient(to right, #e8f4ff 50%, #ffffff 50%);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Makes the box look 3D */
+    z-index: 1;
+}
+/* Left Section */
+.illustration-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: transparent; /* Ensure it doesn't block the gradient */
+}
+.main-img {
+    width: 100%;
+    max-width: 400px; /* Adjust based on your image size */
+    height: auto;
+    object-fit: contain;
+    display: block; /* Ensures it's not treated as inline text */
+}
+/* Right Section */
+.form-section {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.logo-space {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.top-logo {
+    width: 100px; /* Adjust size as needed */
+}
+
+.welcome-text {
+    color: #2458a2;
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.subtitle {
+    color: #59739d;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* Form Inputs */
+.input-field {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+}
+
+.input-field .icon {
+    color: #bbb;
+    margin-right: 10px;
+}
+
+.input-field input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.forgot-pass {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.forgot-pass a {
+    color: #4a75b3;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-signin {
+    flex: 1;
+    background-color: #125ba3;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-signup {
+    flex: 1;
+    background-color: transparent;
+    color: #125ba3;
+    border: 1px solid #125ba3;
+    padding: 12px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-signin:hover {
+    background-color: #0d4a86;
+}
+
+/* Social Login */
+.social-login {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.social-login p {
+    font-size: 0.75rem;
+    color: #bbb;
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.s-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #eee;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.fb { color: #3b5998; }
+.google { color: #db4a39; }
+.linkedin { color: #0077b5; }
+
+.s-icon:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.error-msg {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-container-new {
+        flex-direction: column;
+        height: auto;
+        background: white;
+    }
+    .illustration-section {
+        display: none; /* Hide image on small mobile screens */
+    }
+}

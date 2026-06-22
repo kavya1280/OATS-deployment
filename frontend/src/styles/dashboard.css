@@ -1,0 +1,238 @@
+/* --- Global Styles --- */
+.dashboard-wrapper {
+    background: url('/images/bg1.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+/* --- KPI Cards--- */
+.kpi-card {
+    background: #ffffff !important; 
+    border: 1px solid #e0e0e0 !important;
+    /* Remove the old border-left */
+    border-left: none !important; 
+    border-radius: 12px;
+    padding: 20px 25px;
+    height: 130px;
+    position: relative; /* Required for the pseudo-element */
+    overflow: hidden;   /* Ensures the gradient follows the border-radius */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+}
+
+/* The Gradient "Border" */
+.kpi-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px; /* Width of your colorful border */
+}
+
+.kpi-card h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 0;
+    z-index: 1;
+}
+
+.kpi-card p {
+    color: #7f8c8d;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    z-index: 1;
+}
+
+/* KPI Color Gradient Variations */
+.kpi-blue::before { 
+    background: linear-gradient(to bottom, #007bff, #6610f2); 
+}
+.kpi-blue h1 { color: #007bff !important; }
+
+.kpi-greeen::before { 
+    background: linear-gradient(to bottom, #28a745, #20c997); 
+}
+.kpi-greeen h1 { color: #28a745 !important; }
+
+.kpi-orangee::before { 
+    background: linear-gradient(to bottom, #fd7e14, #ffc107); 
+}
+.kpi-orangee h1 { color: #fd7e14 !important; }
+
+.kpi-grey::before { 
+    background: linear-gradient(to bottom, #6c757d, #343a40); 
+}
+.kpi-grey h1 { color: #495057; font-size: 2.2rem !important; }
+
+/* --- Glass Cards (Charts, Table, Filter) --- */
+.chart-card {
+    background: #ffffff !important;
+    border-radius: 12px;
+    border: 1px solid #e9ecef !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.table-card{
+    background: rgba(255, 255, 255, 0.8) !important; /* Matched to HTML transparency */
+    border-radius: 1rem;
+    padding: 1rem !important;
+    border: 2px solid #e9ecef !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-card{
+    background: #ffffff !important;
+    padding: 15px 25px !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.filter-card label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* --- Table Styles --- */
+.table th {
+    color: black;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: none;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.overdue {
+    color: red !important; /* Matched to HTML */
+    font-weight: bold;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* --- Take Action Button --- */
+.btn-take-action {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    font-weight: 600;
+    border: none !important;
+}
+
+.btn-take-action:hover {
+    background-color: #e0a800 !important;
+}
+
+.chart-title {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 650;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.chart-container {
+    position: relative;
+    height: 250px !important; 
+    width: 100%;
+    margin-bottom: 20px;
+}
+.chart-container canvas {
+    display: block;
+    max-width: 100%;
+}
+
+.chart-card1 {
+    padding: 2rem !important; /* Reduced from 1.5rem to give more space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-container1 {
+    position: relative;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container1 canvas {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+
+/* --- Loading State --- */
+.loading-overlay {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.loading-capsule {
+    position: absolute;
+    top: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 30px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #2d3e50;
+    z-index: 9999;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Pagination --- */
+.pagination .page-link {
+    color: #333;
+    border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}

@@ -1,0 +1,11 @@
+{
+  "auditee1": { "role": "auditee", "password": "123" },
+  "auditee2": { "role": "auditee", "password": "123" },
+  "auditee3": { "role": "auditee", "password": "123" },
+  "auditee4": { "role": "auditee", "password": "123" },
+  "auditee6": { "role": "auditee", "password": "123" },
+  "auditor1": { "role": "auditor", "password": "123" },
+  "auditor2": { "role": "auditor", "password": "123" }
+  
+}
+

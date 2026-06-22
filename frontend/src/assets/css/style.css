@@ -1,0 +1,412 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #2d3e50;
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.kpi-container {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.kpi-box {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 15px 20px;
+    border-radius: 6px;
+    min-width: 180px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.kpi-box span {
+    font-weight: bold;
+    color: #333;
+}
+
+.kpi-box.pending {
+    background-color: #ffe0e0;
+    border-color: #e57373;
+}
+
+.insight-table {
+    margin-top: 20px;
+}
+
+.insight-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.insight-table th, .insight-table td {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.insight-table th {
+    background: #2d3e50;
+    color: white;
+}
+
+.button-bar {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+
+/* body.action-page {
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+} */
+
+.action-page {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.navbar h2 {
+    font-size: 28px;
+    font-weight: 600;
+    flex-grow: 1;
+    text-align: center;
+    color: white;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.top-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn.grey { background: #555; color: white; }
+.btn.blue { background: #007bff; color: white; }
+.btn.yellow { background: #f0ad4e; color: white; }
+.btn.green { background: #5cb85c; color: white; }
+.btn.purple { background: #6f42c1; color: white; }
+.btn.ai { background: #ca0000; color: white; }
+
+.upload-box {
+    background: transparent;
+    color: white;
+}
+
+#loader {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.85);
+    color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #50b948;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.kpi-bar {
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.4);
+    margin: 15px auto;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+.pagination {
+    text-align: center;
+    margin: 15px;
+}
+
+.bottom-bar {
+    text-align: center;
+    margin: 20px;
+}
+
+.history-table {
+    width: 95%;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+button:hover {
+    background-color: #45a049;
+}
+select, input[type="text"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.pagination button {
+    padding: 6px 10px;
+    margin: 2px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.pagination button:hover {
+    background-color: #2980b9;
+}
+
+.comment-box {
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.exception-select {
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+select#clusterBy {
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+/* Scrollable table box inside each cluster */
+.table-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: 100%;
+    max-height: 350px;
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px;
+}
+
+/* Fix table to stay inside box */
+.table-scroll table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+/* Custom stylish buttons */
+.styled-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #4CAF50, #388E3C);
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.styled-btn:hover {
+    background: linear-gradient(135deg, #66BB6A, #2E7D32);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Scrollable table inside white box --- */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+.cluster-container .table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    border-radius: 10px;
+    background: white;
+    padding: 10px;
+}
+
+.cluster-container table {
+    width: 100%;
+    min-width: 900px;
+    table-layout: auto;
+}
+
+
+/* Custom AI BOX table styles */
+.aibox-table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.aibox-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.aibox-table th,
+.aibox-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.aibox-table thead {
+    background-color: #50b948;
+    color: white;
+}
+
+.header-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.logo-img {
+    height: 50px;
+    margin-right: 20px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+}
+
+
+.status-label {
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: white;
+    text-align: center;
+}
+
+.status-label.yet-to-start {
+    background-color: #d9534f;  /* red */
+}
+
+.status-label.no-data {
+    background-color: #1e0fa5;  /* red */
+}
+
+.status-label.in-progress {
+    background-color: #f0ad4e;  /* orange */
+}
+
+.status-label.completed {
+    background-color: #5cb85c;  /* green */
+}

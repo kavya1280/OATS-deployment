@@ -1,0 +1,131 @@
+/* 1. Global Reset & Background image transparency */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  /* Allows the background image defined in index.html to be visible */
+  background-color: transparent; 
+}
+
+#root {
+    background-color: transparent;
+}
+
+/* 2. DataTables - EXPORT BUTTONS (The grey boxes from your screenshot) */
+.dt-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 5px;
+}
+
+.dt-buttons .btn {
+    font-size: 13px !important;
+    padding: 4px 12px !important;
+    background-color: #f0f0f0 !important; /* Light grey */
+    border: 1px solid #333 !important;   /* Dark border for 'box' look */
+    color: #000 !important;
+    border-radius: 2px !important;       /* Sharp corners */
+    box-shadow: none !important;
+    font-weight: 400 !important;
+}
+
+.dt-buttons .btn:hover {
+    background-color: #e0e0e0 !important;
+    border-color: #000 !important;
+}
+
+/* 3. DataTables - Header & Sorting Icons Fix */
+table.dataTable thead th {
+    background-color: #f8f9fa !important;
+    border-bottom: 2px solid #dee2e6 !important;
+    color: #333;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 10px !important;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Ensure sorting arrows (up/down) appear correctly in the header */
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc:after {
+    opacity: 0.6 !important;
+    bottom: 0.5em !important;
+}
+
+/* 4. Table UI Components */
+.overdue { 
+    color: #dc3545 !important; 
+    font-weight: bold; 
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+/* 5. Legacy Header (Keep for Login/Auditee pages) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #2d3e50;
+  color: white;
+  padding: 10px 20px;
+}
+
+.logo { height: 70px; }
+
+/* 6. Refined Global Button Styles */
+.btn {
+    border-radius: 5px !important;
+    padding: 8px 15px !important;
+    font-weight: 500 !important;
+    border: none !important;
+    transition: all 0.2s ease-in-out !important;
+    cursor: pointer;
+}
+
+/* Color Overrides to match your OATS system */
+.btn.grey { background-color: #95a5a6 !important; color: white !important; }
+.btn.grey:hover { background-color: #7f8c8d !important; }
+
+.btn.blue { background-color: #2980b9 !important; color: white !important; }
+.btn.blue:hover { background-color: #216a9c !important; }
+
+.btn.yellow { background-color: #f1c40f !important; color: #333 !important; }
+.btn.yellow:hover { background-color: #f39c12 !important; }
+
+.btn.purple { background-color: #8e44ad !important; color: white !important; }
+.btn.purple:hover { background-color: #733290 !important; }
+
+.btn.ai { background-color: #27ae60 !important; color: white !important; }
+.btn.ai:hover { background-color: #219150 !important; }
+
+.logout-btn {
+  background-color: #e74c3c !important;
+  color: white !important;
+  border-radius: 4px !important;
+}
+
+/* 7. Scrollbar for Dashboard Cards */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}

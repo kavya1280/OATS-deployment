@@ -1,0 +1,279 @@
+/* analyticsreport.css */
+.analytics-container {
+    background-color: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    padding-bottom: 2rem;
+}
+
+.dashboard-header {
+    background-color: #ffffff;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+    background: #fff !important;
+}
+
+.card-header {
+    background-color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    color: blue !important;
+    padding: 1rem 1.25rem !important;
+    border-bottom: 1px solid #e9ecef !important;
+    border-top: 4px solid #ff0000 !important;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.chart-container {
+    position: relative;
+    height: 650px; /* Reduced slightly for better fit */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Calendar Heatmap */
+/* analyticsreport.css additions */
+
+#calendar-heatmap-container {
+    display: grid;
+    /* This creates the responsive multi-column layout for months */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 10px;
+}
+
+.month-grid {
+    text-align: center;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    /* Optional: shadow to make months pop */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.month-title {
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    color: #333;
+}
+
+.day-headers,
+.day-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day-header {
+    font-size: 0.75em;
+    font-weight: 700;
+    color: #6c757d;
+    padding-bottom: 5px;
+}
+
+.day-cell {
+    aspect-ratio: 1 / 1;
+    /* Keeps cells perfectly square */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    color: #444;
+    cursor: default;
+    transition: transform 0.1s ease;
+}
+
+.day-cell:hover {
+    transform: scale(1.1);
+    z-index: 2;
+    filter: brightness(0.9);
+}
+
+.day-cell.empty {
+    background-color: transparent !important;
+}
+
+/* Ensure the calendar card body is scrollable if needed */
+.calendar-card-body {
+    height: 500px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    /* Slight contrast for the background */
+}
+
+/* analyticsreport.css */
+
+/* Optimized KPI Card Styles */
+.kpi-card {
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    color: #fff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 110px;
+    position: relative;
+    /* CRITICAL FIXES: */
+    border: none !important;      
+    margin: 0;                    
+    overflow: hidden;            
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+}
+
+.kpi-card .kpi-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.kpi-card .kpi-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    line-height: 1.2;
+}
+
+/* Color Gradients - Using !important to ensure they override any inherited styles */
+.kpi-purple { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%) !important; }
+.kpi-gradient1 { background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%) !important; }
+.kpi-green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important; }
+.kpi-yellow { background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%) !important; }
+.kpi-orange { background: linear-gradient(135deg, #ff8c00 0%, #ff4500 100%) !important; }
+.kpi-red { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%) !important; }
+
+/* Custom column for 7 items on large screens */
+@media (min-width: 1200px) {
+    .row-cols-xl-7 > * {
+        flex: 0 0 auto;
+        width: 14.2857%;
+    }
+}
+
+/* --- DataTables Export Buttons Styling --- */
+
+/* Container for buttons */
+.dt-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.dt-button {
+    border: none !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    padding: 8px 16px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dt-button:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.1);
+}
+
+/* Specific colors for each button type */
+
+.buttons-copy {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb) !important;
+}
+
+.buttons-csv {
+    background: linear-gradient(45deg, #c8d8e7, #7b8a9a) !important;
+}
+
+.buttons-excel {
+    background: linear-gradient(45deg, #1d976c, #11998e) !important;
+}
+
+.buttons-pdf {
+    background: linear-gradient(45deg, #eb3349, #f45c43) !important;
+}
+
+.buttons-print {
+    background: linear-gradient(45deg, #36d1dc, #5b86e5) !important;
+}
+
+/* DataTables Search box styling to match */
+.dataTables_filter input {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    outline: none !important;
+    transition: border-color 0.2s;
+}
+
+.dataTables_filter input:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .1) !important;
+}
+
+/* Styling the top row of the table (Search and Buttons) */
+.dataTables_wrapper .row:first-child {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+    margin: 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.dataTables_info {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 10px;
+}
+
+
+#amchartdiv {
+    width: 100%;
+    height: 420px;
+    background-color: transparent;
+}
+
+.empty-state-icon {
+    color: #cbd5e0;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.chart-container:has(.empty-state-icon) {
+    background-color: #fcfcfc; /* Very light grey background for empty sections */
+    border-radius: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Ensure the chart box can center the empty message */

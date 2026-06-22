@@ -1,0 +1,240 @@
+/* Base Layout Styles */
+.auditor-page-wrapper {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Container */
+.dashboard-header {
+  background-color: #ffffff;
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Header Left: Logo + Text */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 45px;
+  margin-right: 15px;
+  /* If your logo is dark, you might need: filter: invert(0); */
+}
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: #212529;
+}
+
+.header-subtitle {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Header Right: Buttons */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-nav {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.btn-nav:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.btn-blue { background-color: #0d6efd; color: white; }
+.btn-yellow { background-color: #ffc107; color: #000; }
+.btn-grey { background-color: #6c757d; color: white; }
+.btn-purple { background-color: #6f42c1; color: white; }
+
+/* Table Card Styling from your HTML template */
+.custom-card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  background: white;
+  margin-bottom: 2rem;
+}
+
+.card-header-styled {
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  color: #0d6efd; /* Blue color from your HTML */
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e9ecef;
+  border-top: 4px solid #ff0000; /* Red top border from your HTML */
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.custom-table th {
+  background-color: #212529;
+  color: white;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.custom-table td {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Table Controls Layout */
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.entries-wrapper select {
+  margin: 0 5px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.search-wrapper input {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+/* Table Footer / Pagination */
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination-buttons button {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+  background: #e9ecef;
+}
+
+.pagination-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-number {
+  font-weight: 600;
+  color: #444;
+}
+
+/* KPI Preview Bar */
+.kpi-preview-bar {
+  background-color: #ecf0f1;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 30px;
+  font-size: 0.9rem;
+  border: 1px solid #bdc3c7;
+}
+
+.kpi-preview-bar strong {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Transitions */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Header Cell Styling */
+.custom-table thead th {
+  background-color: #1a1a1a !important; /* Black background */
+  color: white;
+  padding: 12px 15px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  border-bottom: 2px solid #444;
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Keeps text left and arrows right */
+  gap: 10px;
+}
+
+/* Stacked Arrows Container */
+.sort-icons-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 0.6; /* Brings arrows closer together */
+  font-size: 0.75rem;
+}
+
+/* Default state: Gray/muted arrows */
+.sort-icons-stack i {
+  color: #666; 
+  transition: color 0.2s;
+}
+
+/* Active state: White arrows */
+.sort-icons-stack i.active {
+  color: #ffffff !important;
+}
+
+/* Hover effect on header */
+.sortable-th:hover {
+  background-color: #2a2a2a !important;
+}

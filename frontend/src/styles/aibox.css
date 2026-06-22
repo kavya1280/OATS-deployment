@@ -1,0 +1,94 @@
+/* aibox.css */
+.aibox-page {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.logo-img {
+    height: 50px;
+    margin-right: 20px;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #333;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: end;
+    margin-bottom: 20px;
+}
+
+.cluster-controls {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.cluster-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-left: 5px solid #0d6efd;
+}
+
+.cluster-container h3 {
+    margin-top: 0;
+    font-weight: 400;
+    color: #0d6efd;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+}
+
+.aibox-table-wrapper {
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.table-sm {
+    font-size: 0.85rem;
+}
+
+.table-sm th {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.badge {
+    font-weight: 500;
+}
