@@ -36,8 +36,8 @@ def try_parse_date(s):
 app = Flask(__name__)
 
 app.config.update(
-    SESSION_COOKIE_SAMESITE='None',
-    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+    SESSION_COOKIE_SECURE=False, # Set to True in production with HTTPS
     SESSION_COOKIE_HTTPONLY=True,
 )
 CORS(
