@@ -36,8 +36,8 @@ def try_parse_date(s):
 app = Flask(__name__)
 
 app.config.update(
-    SESSION_COOKIE_SAMESITE='Lax',
-    SESSION_COOKIE_SECURE=False, # Set to True in production with HTTPS
+    SESSION_COOKIE_SAMESITE='None',
+    SESSION_COOKIE_SECURE=True,  # Required for cross-site cookies over HTTPS (CloudFront/API Gateway)
     SESSION_COOKIE_HTTPONLY=True,
 )
 CORS(
@@ -45,13 +45,13 @@ CORS(
     resources={
         r"/*": {
             "origins": [
-                "https://oats-deployment.onrender.com"
+                "https://user.altex.dev"
             ]
         }
     },
     supports_credentials=True
 )
-app.secret_key = 'oats-demo-key'
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'oats-demo-key')
 
 DATA_PATH = 'data/insights'
 USERS_FILE = 'data/users.json'
@@ -95,7 +95,7 @@ MASTER_INSIGHTS = [
     {'id': 'AUD_007_A', 'objective': 'Credit Limit Analytics', 'exception': 'Multiple credit limits', 'risk': 'Low','entity': 'Lenovo GT (IN) Pte Ltd.', 'file_id': 'customer_having_multiple_credit_limits', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d')},
     {'id': 'AUD_007_B', 'objective': 'Credit Limit Analytics', 'exception': 'Receivables exceeding credit limits','entity': 'Lenovo GT (IN) Pte Ltd.', 'risk': 'Low', 'file_id': 'receivables_exceeding_credit_limits', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d')},
     {'id': 'AUD_008_A', 'objective': 'Customer having multiple payment terms', 'exception': 'Multiple payment terms', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'customer_having_multiple_payment_terms', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d')},
-    {'id': 'AUD_009_A', 'objective': 'Duplicate Analytics', 'exception': 'Duplicate and Invalid Vendors', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'duplicate_and_invalid_vendors ', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d')},
+    {'id': 'AUD_009_A', 'objective': 'Duplicate Analytics', 'exception': 'Duplicate and Invalid Vendors', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'duplicate_and_invalid_vendors ', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d')},
     {'id': 'AUD_009_B', 'objective': 'Duplicate Analytics', 'exception': 'Duplicate and Invalid Customers', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'duplicate_and_invalid_customers', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d')},
     {'id': 'AUD_010_A', 'objective': 'Price Variance', 'exception': 'Price Variance', 'risk': 'Low', 'entity': 'Moto Mobility IN Pvt Ltd', 'file_id': 'price_variance', 'due_date': (today - timedelta(days=random.randint(5, 20))).strftime('%Y-%m-%d')},
     {'id': 'AUD_011_A', 'objective': 'Split PO', 'exception': 'Split PO', 'risk': 'High','entity': 'Moto Mobility IN Pvt Ltd',  'file_id': 'split_po', 'due_date': (today - timedelta(days=random.randint(5, 20))).strftime('%Y-%m-%d')},
@@ -124,32 +124,6 @@ def login():
         session['role'] = USERS[uname]['role']
         return {"status": True, "message": "Login successful", "data": {"user": uname, "role": USERS[uname]['role']}}
     return {"status": False, "message": "Invalid credentials"}, 401
-
-# @app.route('/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
-#     uname = data.get('username')
-#     passwd = data.get('password')
-
-#     users = load_users()
-
-#     if uname in users and users[uname]['password'] == passwd:
-#         session['user'] = uname
-#         session['role'] = users[uname]['role']
-
-#         return jsonify({
-#             "status": True,
-#             "message": "Login successful",
-#             "data": {
-#                 "user": uname,
-#                 "role": users[uname]['role']
-#             }
-#         })
-
-#     return jsonify({
-#         "status": False,
-#         "message": "Invalid credentials"
-#     }), 401
 
 
 @app.route('/send_email', methods=['POST'])
@@ -334,7 +308,6 @@ def dashboard():
         if row['pending_count'] < row['total_count']:
             status_counts['Completed'] += (row['total_count'] - row['pending_count'])
         
-        # items_per_insight[row['objective']] += row['pending_count']
         items_per_insight[row['objective']] += row['total_count'] 
         insights_by_risk[row['risk']] += 1
         items_per_org[row['entity']] += row['pending_count']
@@ -460,7 +433,6 @@ def logout():
 
 @app.route('/auditor_dashboard')
 def auditor_dashboard():
-    # 1. Authorization Check
     user = session.get('user')
     if not user or USERS.get(user, {}).get('role') != 'auditor':
         return jsonify({"status": False, "message": "Unauthorized"}), 401
@@ -469,7 +441,6 @@ def auditor_dashboard():
     master_lookup = {m['file_id']: m for m in MASTER_INSIGHTS}
     insight_ids = [f.replace('.json', '') for f in os.listdir(DATA_PATH) if f.endswith('.json')]
     
-    # 2. KPI & Chart Aggregators
     kpis = {
         'total_insights': len(insight_ids), 
         'auditee_count': len(assigned_auditees), 
@@ -478,16 +449,14 @@ def auditor_dashboard():
         'pending_auditor': 0
     }
     
-    # Dictionary aggregators for Charts
     cat_counts = defaultdict(int)
     status_counts = defaultdict(int)
     risk_counts = defaultdict(int)
-    owner_counts = defaultdict(int) # Owner = Auditee name
+    owner_counts = defaultdict(int)
     
     status_table = []
     today = datetime.today()
 
-    # 3. Data Processing
     for fid in insight_ids:
         mapping = get_mapping_rule(fid)
         if not mapping: continue
@@ -503,7 +472,6 @@ def auditor_dashboard():
                 full_data = json.load(f)
             except json.JSONDecodeError: continue
 
-        # Group data by auditee based on region mapping
         for row in full_data:
             region = row.get(filter_col)
             auditee = mapping['region_to_user'].get(region)
@@ -515,16 +483,13 @@ def auditor_dashboard():
             submitted_count = 0
             auditor_pending_count = 0
             
-            # Check auditee's reviewed file
             reviewed_path = f'data/reviewed/{fid}_{auditee}.json'
             if os.path.exists(reviewed_path):
                 with open(reviewed_path, encoding='utf-8') as rf:
                     try:
                         reviewed_data = json.load(rf)
-                        # Submitted = Auditee has commented
                         submitted_ids = {r.get('INVOICE_NO') for r in reviewed_data if r.get("Comment")}
                         submitted_count = len(submitted_ids)
-                        # Pending Auditor = Auditee commented but Auditor hasn't replied yet
                         auditor_pending_count = sum(1 for r in reviewed_data if r.get("Comment") and not r.get("Auditor Comment"))
                     except json.JSONDecodeError: pass
             
@@ -532,7 +497,6 @@ def auditor_dashboard():
             kpis['pending_auditor'] += auditor_pending_count
             kpis['pending_auditee'] += pending_auditee_count
             
-            # Logic for Status
             if pending_auditee_count == 0 and auditor_pending_count == 0:
                 status, s_class = "Completed", "completed"
             elif submitted_count > 0:
@@ -540,12 +504,9 @@ def auditor_dashboard():
             else:
                 status, s_class = "Yet to Start", "yet-to-start"
             
-            # Update Chart Aggregators
             status_counts[status] += 1
             owner_counts[auditee] += pending_auditee_count
             
-            # (Note: For Risk and Category, you would usually map 'fid' to a Master list)
-            # Dummy logic for example:
             risk_counts["High" if "AUD-001" in fid else "Medium"] += 1
             cat_counts["Supplier" if "AUD" in fid else "IT"] += 1
 
@@ -559,7 +520,6 @@ def auditor_dashboard():
                 "status_class": s_class
             })
 
-    # 4. Format Chart Data for React (labels and values)
     chart_data = {
         "categories": {"labels": list(cat_counts.keys()), "values": list(cat_counts.values())},
         "status": {"labels": list(status_counts.keys()), "values": list(status_counts.values())},
@@ -567,7 +527,12 @@ def auditor_dashboard():
         "owner": {"labels": list(owner_counts.keys()), "values": list(owner_counts.values())}
     }
 
-    # 5. Return JSON
+    auditee_data = {
+        "labels": ["Auditee1", "Auditee2"],
+        "auditee1": [120, 0],
+        "auditee2": [0, 85]
+    }
+
     return jsonify({
         "kpis": kpis,
         "insights": insight_ids,
@@ -575,6 +540,7 @@ def auditor_dashboard():
         "chart_data": chart_data,
         "auditee_data": auditee_data
     })
+
 @app.route('/auditor_action/<insight_id>')
 def auditor_action(insight_id):
     return jsonify({"insight_id": insight_id})
@@ -631,7 +597,6 @@ def get_auditor_pending_data(insight_id):
 @app.route('/report')
 def report():
     user = session.get('user')
-    # If not logged in or not an auditor, return JSON error, NOT a redirect
     if not user or USERS.get(user, {}).get('role') != 'auditor':
         return jsonify({"status": "error", "message": "Unauthorized"}), 401
         
@@ -657,7 +622,7 @@ def report():
         {'id': 'AUD_007_A', 'category': 'Customer','objective': 'Credit Limit Analytics', 'exception': 'Multiple credit limits', 'risk': 'Low','entity': 'Lenovo GT (IN) Pte Ltd.', 'file_id': 'customer_having_multiple_credit_limits', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
         {'id': 'AUD_007_B','category': 'IT', 'objective': 'Credit Limit Analytics', 'exception': 'Receivables exceeding credit limits','entity': 'Lenovo GT (IN) Pte Ltd.', 'risk': 'Low', 'file_id': 'receivables_exceeding_credit_limits', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
         {'id': 'AUD_008_A', 'category': 'IT','objective': 'Customer having multiple payment terms', 'exception': 'Multiple payment terms', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'customer_having_multiple_payment_terms', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
-        {'id': 'AUD_009_A', 'category': 'IT','objective': 'Duplicate Analytics', 'exception': 'Duplicate and Invalid Vendors', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'duplicate_and_invalid_vendors ', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
+        {'id': 'AUD_009_A', 'category': 'IT','objective': 'Duplicate Analytics', 'exception': 'Duplicate and Invalid Vendors', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'duplicate_and_invalid_vendors ', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
         {'id': 'AUD_009_B', 'category': 'IT','objective': 'Duplicate Analytics', 'exception': 'Duplicate and Invalid Customers', 'risk': 'Low', 'entity': 'Lenovo GT (IN) Pte Ltd.','file_id': 'duplicate_and_invalid_customers', 'due_date': (today - timedelta(days=random.randint(65, 80))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
         {'id': 'AUD_010_A','category': 'IT', 'objective': 'Price Variance', 'exception': 'Price Variance', 'risk': 'Low', 'entity': 'Moto Mobility IN Pvt Ltd', 'file_id': 'price_variance', 'due_date': (today - timedelta(days=random.randint(5, 20))).strftime('%Y-%m-%d'), 'rule': 'region_based'},
         {'id': 'AUD_011_A', 'category': 'Fixed Asset','objective': 'Split PO', 'exception': 'Split PO', 'risk': 'High','entity': 'Moto Mobility IN Pvt Ltd',  'file_id': 'split_po', 'due_date': (today - timedelta(days=random.randint(5, 20))).strftime('%Y-%m-%d'),'rule': 'region_based'},
@@ -937,6 +902,118 @@ def get_auditor_history(insight_id):
     return jsonify({'columns': ordered_columns, 'data': result})
 
 
+# ============================================================================
+# LAMBDA DEPLOYMENT — pure WSGI handler (no Mangum, no per-route rewrites)
+#
+# API Gateway (HTTP API or REST API w/ proxy integration) invokes `handler`
+# below. It converts the Lambda event into a WSGI environ dict, calls the
+# *existing* Flask app object directly via app(environ, start_response), and
+# converts the WSGI response back into the shape API Gateway expects.
+# Every route above is untouched — Flask still owns routing, sessions, CORS.
+# ============================================================================
+
+import base64
+import io
+import sys
+from urllib.parse import urlencode
+
+
+def _build_environ(event, context):
+    """Translate an API Gateway (HTTP API v2 or REST API v1) event into a WSGI environ."""
+    headers = event.get('headers') or {}
+    # Normalize header keys to a case-insensitive lookup
+    lower_headers = {k.lower(): v for k, v in headers.items()}
+
+    version = event.get('version', '1.0')
+    if version == '2.0':
+        http = event['requestContext']['http']
+        method = http['method']
+        path = http['path']
+        query_string = event.get('rawQueryString', '')
+    else:
+        method = event.get('httpMethod', 'GET')
+        path = event.get('path', '/')
+        multi_qs = event.get('multiValueQueryStringParameters') or {}
+        if multi_qs:
+            pairs = [(k, v) for k, vals in multi_qs.items() for v in vals]
+            query_string = urlencode(pairs)
+        else:
+            query_string = urlencode(event.get('queryStringParameters') or {})
+
+    body = event.get('body') or ''
+    if event.get('isBase64Encoded'):
+        body_bytes = base64.b64decode(body)
+    else:
+        body_bytes = body.encode('utf-8')
+
+    environ = {
+        'REQUEST_METHOD': method,
+        'SCRIPT_NAME': '',
+        'PATH_INFO': path,
+        'QUERY_STRING': query_string,
+        'SERVER_NAME': lower_headers.get('host', 'lambda'),
+        'SERVER_PORT': '443',
+        'SERVER_PROTOCOL': 'HTTP/1.1',
+        'wsgi.version': (1, 0),
+        'wsgi.url_scheme': 'https',
+        'wsgi.input': io.BytesIO(body_bytes),
+        'wsgi.errors': sys.stderr,
+        'wsgi.multithread': False,
+        'wsgi.multiprocess': False,
+        'wsgi.run_once': False,
+        'CONTENT_LENGTH': str(len(body_bytes)),
+    }
+
+    for key, value in lower_headers.items():
+        if key == 'content-type':
+            environ['CONTENT_TYPE'] = value
+        elif key == 'content-length':
+            continue
+        else:
+            environ['HTTP_' + key.upper().replace('-', '_')] = value
+
+    return environ
+
+
+def handler(event, context):
+    environ = _build_environ(event, context)
+
+    response_data = {}
+
+    def start_response(status, response_headers, exc_info=None):
+        response_data['status'] = status
+        response_data['headers'] = response_headers
+
+    body_iter = app(environ, start_response)
+    body_bytes = b''.join(body_iter)
+
+    status_code = int(response_data['status'].split(' ')[0])
+    headers_out = {}
+    multi_headers_out = {}
+    for key, value in response_data['headers']:
+        if key.lower() == 'set-cookie':
+            multi_headers_out.setdefault('Set-Cookie', []).append(value)
+        else:
+            headers_out[key] = value
+
+    try:
+        body_text = body_bytes.decode('utf-8')
+        is_base64 = False
+    except UnicodeDecodeError:
+        body_text = base64.b64encode(body_bytes).decode('ascii')
+        is_base64 = True
+
+    result = {
+        'statusCode': status_code,
+        'headers': headers_out,
+        'body': body_text,
+        'isBase64Encoded': is_base64,
+    }
+    if multi_headers_out:
+        result['multiValueHeaders'] = {k: v for k, v in multi_headers_out.items()}
+
+    return result
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -949,4 +1026,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     app.run(host="127.0.0.1", port=args.port, debug=True)
-
