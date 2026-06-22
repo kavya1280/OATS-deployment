@@ -40,7 +40,7 @@ app.config.update(
     SESSION_COOKIE_SECURE=False, # Set to True in production with HTTPS
     SESSION_COOKIE_HTTPONLY=True,
 )
-ORS(
+CORS(
     app,
     resources={
         r"/*": {
