@@ -45,7 +45,8 @@ CORS(
     resources={
         r"/*": {
             "origins": [
-                "https://ad-oats.netlify.app"
+                "https://ad-oats.netlify.app",
+                # "https://oats-deployment.onrender.com"
             ]
         }
     },
