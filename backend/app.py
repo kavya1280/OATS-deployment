@@ -47,6 +47,7 @@ CORS(
             "origins": [
                 "https://ad-oats.netlify.app",
                 # "https://oats-deployment.onrender.com"
+                # "https://oats-netlify.onrender.com"
             ]
         }
     },
